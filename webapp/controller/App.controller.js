@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/m/library",
+    "sap/m/ObjectAttribute",
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/type/Currency"
-],(mobileLibrary, Controller,Currency)=>{
+],(mobileLibrary,ObjectAttribute, Controller,Currency)=>{
     "use strict";
 
     return Controller.extend("ui5.databinding.controller.App",{
@@ -25,6 +26,28 @@ sap.ui.define([
                 const sPath = oContext.getPath();
 		    	const oProductDetailPanel = this.byId("productDetailsPanel");
 			    oProductDetailPanel.bindElement({ path: sPath, model: "products" });
+            },
+            productListFactory(sId, oContext) {
+                let oUIControl;
+    
+                
+                if (oContext.getProperty("UnitsInStock") === 0 && oContext.getProperty("Discontinued")) {
+                  
+                    oUIControl = this.byId("productSimple").clone(sId);
+                } else {
+                
+                    oUIControl = this.byId("productExtended").clone(sId);
+    
+                    if (oContext.getProperty("UnitsInStock") < 1) {
+                        oUIControl.addAttribute(new ObjectAttribute({
+                            text : {
+                                path: "i18n>outOfStock"
+                            }
+                        }));
+                    }
+                }
+    
+                return oUIControl;
             }
     });
 });
