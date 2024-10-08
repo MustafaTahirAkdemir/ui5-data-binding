@@ -57,7 +57,11 @@ controllerName="ui5.databinding.controller.App"
 	<Panel headerText="{i18n>panel3HeaderText}" class="sapUiResponsiveMargin" width="auto">
 		<List  headerText="{i18n>productListTitle}" items="{products>/Products}">
 			<items>
-				<ObjectListItem title="{product>ProductName}"
+				<ObjectListItem 
+					press=".onItemSelected"
+					type="Active"
+
+					title="{product>ProductName}"
 					number="{
 						parts:[
 							{path: 'products>UnitPrice'},
@@ -89,6 +93,30 @@ controllerName="ui5.databinding.controller.App"
 		
 		</List>
 	</Panel>
+	<Panel id="productDetailsPanel" headerText="{i18n>panel4HeaderText}" class="sapUiResponsiveMargin" width="auto">
+		<form:SimpleForm>
+			<Label text="{i18n>ProductID}"/>
+			<Input value="{products>ProductID}"/>
 
+			<Label text="{i18n>ProductName}"/>
+			<Input value="{products>ProductName}"/>
+
+			<Label text="{i18n>QuantityPerUnit}"/>
+			<Input value="{products>QuantityPerUnit}"/>
+
+			<Label text="{i18n>UnitPrice}"/>
+			<Input value="{products>UnitPrice}"/>
+
+			<Label text="{i18n>UnitsInStock}"/>
+			<Input value="{products>UnitsInStock}"/>
+
+			<Label text="{i18n>Discontinued}"/>
+			<CheckBox selected="{products>Discontinued}"/>
+		
+		
+		</form:SimpleForm> 
+	
+	
+	</Panel>
 	
 </mvc:View>
