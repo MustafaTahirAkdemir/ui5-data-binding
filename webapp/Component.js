@@ -7,6 +7,11 @@ sap.ui.define([
 		metadata: {
 			interfaces: ["sap.ui.core.IAsyncContentCreation"],
 			manifest: "json"
+		},
+		init(){
+			UIComponent.prototype.init.apply(this, arguments);
+			
+			this.getModel().setDefaultBindingMode(BindingMode.OneWay);
 		}
 	});
 });
